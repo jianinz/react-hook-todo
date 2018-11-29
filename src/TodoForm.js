@@ -1,25 +1,27 @@
 import TextField from "@material-ui/core/TextField/TextField";
-import propTypes from 'prop-types';
 import React from 'react';
+import useFormInputState from './useFormInputState';
 
-const TodoForm = ({onSubmit, item, onChange}) => {
+const TodoForm = ({saveItem}) => {
+
+  const {value, resetTextField, onChange} = useFormInputState();
+
   return (
       <form
-          onSubmit={onSubmit}>
+          onSubmit={event => {
+            event.preventDefault();
+            saveItem(value);
+            resetTextField();
+          }}
+      >
         <TextField
-            value={item}
+            value={value}
             variant={"standard"}
             autoFocus={true}
             onChange={onChange}
             margin={"normal"}/>
       </form>
   );
-};
 
-TodoForm.propTypes = {
-  onSubmit: propTypes.func.isRequired,
-  item: propTypes.string.isRequired,
-  onChange: propTypes.func.isRequired,
 };
-
-export default TodoForm
+export default TodoForm;

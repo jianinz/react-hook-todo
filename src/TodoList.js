@@ -6,34 +6,26 @@ import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction/L
 import IconButton from "@material-ui/core/IconButton/IconButton";
 import DeleteIcon from '@material-ui/icons/Delete';
 import React from "react";
-import propTypes from "prop-types";
 
-const TodoList = ({items, onClick, onChange}) => {
-  return (
-      <List>
-        {items.map((item, index) => (
-            <ListItem key={index.toString()} dense>
-              <Checkbox
-                  onChange={onChange}/>
-              <ListItemText primary={item}/>
-              <ListItemSecondaryAction>
-                <IconButton
-                    color={"primary"}
-                    onClick={() => onClick(index)}
-                >
-                  <DeleteIcon/>
-                </IconButton>
-              </ListItemSecondaryAction>
-            </ListItem>
-        ))}
-      </List>
-  );
-};
+const TodoList = ({items, deleteItem}) => (
+    <List>
+      {items.map((item, index) => (
+          <ListItem key={index.toString()} dense>
+            <Checkbox/>
+            <ListItemText primary={item}/>
+            <ListItemSecondaryAction>
+              <IconButton
+                  color={"primary"}
+                  onClick={() => {
+                    deleteItem(index);
+                  }}
+              >
+                <DeleteIcon/>
+              </IconButton>
+            </ListItemSecondaryAction>
+          </ListItem>
+      ))}
+    </List>
+);
 
-TodoList.propTypes = {
-  onChange: propTypes.func.isRequired,
-  items: propTypes.array.isRequired,
-  onClick: propTypes.func.isRequired,
-};
-
-export default TodoList
+export default TodoList;
